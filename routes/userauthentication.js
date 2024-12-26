@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require ('express');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const User = require('../models/User'); 
+const bcrypt =require('bcryptjs');
+const User = require('../models/User.js');
 
 const router = express.Router();
 
@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
         // Check password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: 'Incorrect password' });
+            return res.status(400).json({ message: 'Invalid credentials' });
         }
 
         // Generate JWT token
