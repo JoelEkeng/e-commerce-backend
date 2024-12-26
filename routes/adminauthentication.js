@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
 
     try {
         if (!name || !email || !password) {
-            return res.status(400).json({ message: 'Please enter all fields' });
+            return res.status(400).json({ message: 'Provide all Informations' });
         }
 
         // Check if admin already exists
@@ -58,11 +58,13 @@ router.post('/login', async (req, res) => {
         // Find admin by email
         const admin = await Admin.findOne({ email });
         if (!admin) {
-            return res.status(400).json({ message: 'Unauthorized: No Admin Privilage' });
+            return res.status(400).json({ message: 'Unauthorized: Not an Admin. Log in as a User' });
         }
 
         // Check password
-        const isMatch = await bcrypt.compare(password, admin.password);
+        const isMatch = await bcrypt.compare(password.trim(), admin.password);
+        console.log('Password match result:', isMatch);
+
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
