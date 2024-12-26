@@ -8,6 +8,7 @@ require('dotenv').config(); // Load environment variables
 const adminRoutes = require('./routes/admin'); // Admin functionality for products
 const userRoutes = require('./routes/user'); // User-related functionality
 const userauthentication = require('./routes/userauthentication'); // User-related functionality
+const adminauthentication = require('./routes/adminauthentication'); // Admin-related functionality
 
 const app = express();
 
@@ -25,6 +26,7 @@ mongoose
 app.use('/admin', adminRoutes); // Admin routes
 app.use('/user', userRoutes); // User routes
 app.use('/user/auth', userauthentication); // User authentication routes
+app.use('/admin/auth', adminauthentication); // Admin authentication routes
 
 // Default route
 app.get('/', (req, res) => {
